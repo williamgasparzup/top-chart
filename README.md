@@ -1,6 +1,6 @@
 # Top chart
 
-This project was made to test the usage of echarts as the charts library.
+This project was made to test the usage of echarts as the charts library. You can see it [here](https://github.com/williamgasparzup/top-chart).
 
 ## Getting Started
 
