@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Bar from './charts/Bar'
+import Line from './charts/Line'
+import Pie from './charts/Pie'
+import Button from './components/Button'
+import Center from './components/Center'
+
+enum SCREENS {
+  PIE = 'PIE',
+  LINE = 'LINE',
+  BAR = 'BAR'
+}
+
+type Keys = keyof typeof SCREENS
+
+const keysOf = <T extends { [key in Keys]: string }>(object: T) => {
+  const keys = Object.keys(object)
+
+  return keys as Keys[]
+}
 
 function App() {
+  const [screen, setScreen] = useState<SCREENS>(SCREENS.BAR)
+
+  const handleChangeChart = (key: Keys) => () => {
+    setScreen(SCREENS[key])
+  }
+
+  const renderButtons = () => {
+    return keysOf(SCREENS).map(key =>
+      <Button
+        selected={ screen === SCREENS[key] }
+        onClick={ handleChangeChart(key) }>
+        { key }
+      </Button>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Center>
+        { renderButtons() }
+      </Center>
+      <div>
+        { screen === SCREENS.BAR && <Bar /> }
+        { screen === SCREENS.LINE && <Line /> }
+        { screen === SCREENS.PIE && <Pie /> }
+      </div>
     </div>
   );
 }
