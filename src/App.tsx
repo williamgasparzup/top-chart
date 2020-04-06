@@ -29,6 +29,7 @@ function App() {
   const renderButtons = () => {
     return keysOf(SCREENS).map(key =>
       <Button
+        key={ key }
         selected={ screen === SCREENS[key] }
         onClick={ handleChangeChart(key) }>
         { key }
